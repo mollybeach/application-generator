@@ -18,6 +18,6 @@ jobs:
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
         echo "." >> README.md
-        git add .
+        git add .....
         git commit -m "Made changes to README"
         git push origin HEAD
