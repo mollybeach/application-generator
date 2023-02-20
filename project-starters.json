@@ -1,0 +1,25 @@
+{
+  "js": {
+    "Vue": "vue create my-project",
+    "React": "npx create-react-app my-project",
+    "Angular": "ng new my-project",
+    "Ember": "ember new my-project",
+    "Backbone": "npx backbone-cli new my-project",
+    "Meteor": "meteor create my-project"
+  },
+  "py": {
+    "Django": "django-admin startproject my-project",
+    "Flask": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install Flask",
+    "Pyramid": "pcreate -s starter my-project",
+    "FastAPI": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install fastapi uvicorn"
+  },
+  "rb": {
+    "Ruby on Rails": "rails new my-project"
+  },
+  "go": {
+    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin"
+  },
+  "java": {
+    "Spring Boot": "spring init --dependencies=web my-project"
+  }
+}
