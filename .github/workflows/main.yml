@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron:  '*/5 * * * *'
 env:
   GIT_AUTHOR_NAME: mollybeach
   GIT_AUTHOR_EMAIL: mollyjbeach@gmail.com
@@ -15,8 +15,8 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
+        git config --global user.email "mollyjbeach@gmail.com"
+        git config --global user.name "mollybeach"
         echo "." >> README.md
         git add .
         git commit -m "Made changes to README"
