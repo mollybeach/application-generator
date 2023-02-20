@@ -1,23 +1,19 @@
+name: Create new repository
 on:
-  schedule:
-    - cron:  '*/5 * * * *'
-env:
-  GIT_AUTHOR_NAME: mollybeach
-  GIT_AUTHOR_EMAIL: mollyjbeach@gmail.com
-  
+  push:
+    branches:
+      - main
 jobs:
-  build:
+  create-repo:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Commit changes
-      run: |
-        git config --global user.email "mollyjbeach@gmail.com"
-        git config --global user.name "mollybeach"
-        echo "." >> README.md
-        git add .
-        git commit -m "Made changes to README"
-        git push origin HEAD
+      - name: Create Repository
+        uses: uses: peter-evans/create-repo@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: meep
+          description: A new repository
+          private: false
+          has_issues: true
+          has_projects: true
+          has_wiki: true
