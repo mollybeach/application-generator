@@ -16,15 +16,15 @@ GitHub integration: The tool pushes the new project to GitHub, making it easy to
 Supported programming languages and frameworks
 The "application-generator" currently supports the following programming languages and frameworks:
 
-JavaScript: Vue, React, Angular, Ember, Backbone, Meteor
-Python: Django, Flask, Pyramid, FastAPI
-Ruby: Ruby on Rails
-Go: Gin
-Java: Spring Boot
-Requirements
-To use the "application-generator", you need the following software installed on your system:
+### JavaScript: Vue, React, Angular, Ember, Backbone, Meteor
+### Python: Django, Flask, Pyramid, FastAPI
+### Ruby: Ruby on Rails
+### Go: Gin
+### Java: Spring Boot
+## Requirements
+## To use the "application-generator", you need the following software installed on your system:
 
-Bash
-Git
-License
-The "application-generator" is licensed under the MIT License. See the LICENSE file for more information.
+## Bash
+## Git
+# License
+## The "application-generator" is licensed under the MIT License. See the LICENSE file for more information.
