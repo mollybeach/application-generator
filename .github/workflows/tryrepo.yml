@@ -13,7 +13,7 @@ jobs:
       - name: Create repository
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.APP_GEN_TOKEN }}
           script: |
             const repo = await github.repos.createForAuthenticatedUser({
               name: process.env.REPOSITORY_NAME,
