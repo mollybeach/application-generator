@@ -1,0 +1,66 @@
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+env:
+  GIT_AUTHOR_NAME: mollybeach
+  GIT_AUTHOR_EMAIL: mollyjbeach@gmail.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Generate and push random project to GitHub
+      run: |
+        animals=($(< animal-names.txt))
+        fruits=($(< fruit-names.txt))
+
+        animal_index=$((RANDOM % ${#animals[@]}))
+        fruit_index=$((RANDOM % ${#fruits[@]}))
+
+        animal=${animals[$animal_index]}
+        fruit=${fruits[$fruit_index]}
+
+        extensions=($(< code-extensions.txt))
+        extension_index=$((RANDOM % ${#extensions[@]}))
+        extension=${extensions[$extension_index]}
+
+        project=($(< code-projects.txt))
+        project_index=$((RANDOM % ${#project[@]}))
+        project=${project[$project_index]}
+
+        repo_name="${fruit}-${animal}"
+        echo "Creating repository: ${repo_name}"
+
+        # Create a new repository using the GitHub API
+        curl -u "mollybeach:${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+        --data "{\"name\":\"${repo_name}\"}" \
+        https://api.github.com/user/repos
+
+        # Create a new directory with the repository name
+        mkdir "${repo_name}"
+
+        # Change into the new directory
+        cd "${repo_name}"
+
+        # Initialize an empty git repository
+        git init
+
+        # Create a README.md file with the repository name as the title
+        echo "# ${repo_name}" >> README.md
+
+        # Add the README.md file
+        git add README.md
+
+        # Commit the changes
+        git commit -m "Initial commit"
+
+        # Add the remote origin for the new repository
+        git remote add origin "https://github.com/mollybeach/${repo_name}.git"
+
+        # Push the changes to the remote repository
+        git push --set-upstream origin master
