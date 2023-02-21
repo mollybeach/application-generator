@@ -1,25 +1,25 @@
 {
   "js": {
-    "Vue": "vue create my-project && npm install",
-    "React": "npx create-react-app my-project && npm install",
-    "Angular": "ng new my-project && npm install",
-    "Ember": "ember new my-project && npm install",
-    "Backbone": "npx backbone-cli new my-project && npm install",
-    "Meteor": "meteor create my-project && npm install"
+    "Vue": "npm install -g vue-cli && vue create my-project",
+    "React": "npm install -g create-react-app && create-react-app my-project",
+    "Angular": "npm install -g @angular/cli && ng new my-project",
+    "Ember": "npm install -g ember-cli && ember new my-project",
+    "Backbone": "npm install -g backbone-cli && backbone new my-project",
+    "Meteor": "curl https://install.meteor.com/ | sh && meteor create my-project"
   },
   "py": {
-    "Django": "django-admin startproject my-project && pip install -r requirements.txt && python manage.py runserver",
-    "Flask": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install Flask && deactivate",
-    "Pyramid": "pcreate -s starter my-project && pip install -r requirements.txt && pserve development.ini",
-    "FastAPI": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install fastapi uvicorn && deactivate"
+    "Django": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install django && django-admin startproject my-project && cd my-project && pip install -r requirements.txt",
+    "Flask": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install Flask && mkdir my-project && cd my-project",
+    "Pyramid": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install pyramid && pcreate -s starter my-project",
+    "FastAPI": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install fastapi uvicorn && mkdir my-project && cd my-project"
   },
   "rb": {
-    "Ruby on Rails": "rails new my-project && bundle install && rails server"
+    "Ruby on Rails": "gem install rails && rails new my-project"
   },
   "go": {
-    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin && go build && ./my-project"
+    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin"
   },
   "java": {
-    "Spring Boot": "spring init --dependencies=web my-project && mvn package && java -jar target/my-project-0.0.1-SNAPSHOT.jar"
+    "Spring Boot": "curl https://start.spring.io/starter.tgz -d dependencies=web -d language=java -d bootVersion=2.6.3.RELEASE | tar -xzvf - && mv demo my-project"
   }
 }
