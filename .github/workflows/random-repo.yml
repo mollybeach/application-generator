@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/github-script@v6
+      uses: actions/checkout@v3
 
     - name: Generate and push random project to GitHub
       run: |
