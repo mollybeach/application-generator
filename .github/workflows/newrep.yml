@@ -1,0 +1,72 @@
+name: Generate and push random project to GitHub
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+
+env:
+  GIT_AUTHOR_NAME: mollybeach
+  GIT_AUTHOR_EMAIL: mollyjbeach@gmail.com
+
+jobs:
+  generate_project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Set up environment variables
+        run: |
+          IFS=$'\n'
+          animals=($(< animal-names.txt))
+          fruits=($(< fruit-names.txt))
+          extensions=($(< code-extensions.txt))
+          projects=($(< code-projects.txt))
+
+      - name: Generate project name
+        run: |
+          animal_index=$((RANDOM % ${#animals[@]}))
+          fruit_index=$((RANDOM % ${#fruits[@]}))
+          extension_index=$((RANDOM % ${#extensions[@]}))
+          project_index=$((RANDOM % ${#projects[@]}))
+          animal=${animals[$animal_index]}
+          fruit=${fruits[$fruit_index]}
+          extension=${extensions[$extension_index]}
+          project=${projects[$project_index]}
+          folder_name="${fruit}-${animal}-${extension}"
+          echo "::set-output name=folder_name::${folder_name}"
+
+      - name: Create repository
+        uses: f1lander/create-repository-action@v1
+        with:
+          name: ${{ env.folder_name }}
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create project directory
+        run: |
+          mkdir ${{ env.folder_name }}
+          echo "Created folder: ${{ env.folder_name }}"
+
+      - name: Change directory
+        run: cd ${{ env.folder_name }}
+
+      - name: Create project
+        run: |
+          command=$(echo ${project} | jq -r ".[\"${extension}\"]")
+          eval "${command}"
+          echo "Created project using ${project} for ${extension}"
+
+      - name: Create README.md
+        run: echo "# ${{ env.folder_name }}" > README.md
+
+      - name: Add and commit files
+        run: |
+          git add .
+          git commit -m "Initial commit"
+          git push origin HEAD
