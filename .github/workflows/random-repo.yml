@@ -35,6 +35,10 @@ jobs:
         project=($(< code-projects.txt))
         project_index=$((RANDOM % ${#project[@]}))
         project=${project[$project_index]}
+        
+        projects=$(< code-projects.txt)
+        IFS=$'\n' read -rd '' -a projects <<<"$projects"
+        project=${projects[RANDOM % ${#projects[@]}]}
 
         repo_name="${fruit}-${animal}"
         echo "Creating repository: ${repo_name}"
