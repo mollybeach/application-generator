@@ -37,7 +37,7 @@ jobs:
         project=${project[$project_index]}
 
         # Parse the start code file and get the object for the language specified in the extension variable
-        start_code=$(< start-code.json)
+        start_code=$(< start-coder.json)
         language=$(echo $extension | tr '[:upper:]' '[:lower:]')
         frameworks=$(echo $start_code | jq -r --arg lang "$language" '.[$lang]')
         random_framework=$(echo $frameworks | jq -r 'keys[]' | shuf -n 1)
