@@ -32,16 +32,10 @@ jobs:
         extension_index=$((RANDOM % ${#extensions[@]}))
         extension=${extensions[$extension_index]}
 
-        project=($(< code-projects.txt))
-        project_index=$((RANDOM % ${#project[@]}))
-        project=${project[$project_index]}
-
-        # Parse the start code file and get the object for the language specified in the extension variable
         start_code=$(< starter-code.json)
-        language=$(echo $extension | tr '[:upper:]' '[:lower:]')
-        frameworks=$(echo $start_code | jq -r --arg lang "$language" '.[$lang]')
-        random_framework=$(echo $frameworks | jq -r 'keys[]' | shuf -n 1)
-        start_command=$(echo $frameworks | jq -r --arg framework "$random_framework" '.[$framework]')
+
+        # Find the key in the start-code file that matches the selected extension
+        command=$(echo "$start_code" | jq -r ".[\"$extension\"] | to_entries | .[random % length] | .value")
 
         repo_name="${fruit}-${animal}"
         echo "Creating repository: ${repo_name}"
@@ -51,9 +45,10 @@ jobs:
           --data "{\"name\":\"${repo_name}\"}" \
           https://api.github.com/user/repos
 
-        # Update the repository's sidebar with the repository name and extension
+        # Update the repository's sidebar with a descriptive text
+        description="This project is built in ${extension} tool that ${command}."
         curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
-          --data "{\"name\":\"${repo_name}\", \"description\":\"${extension}\"}" \
+          --data "{\"name\":\"${repo_name}\", \"description\":\"${description}\"}" \
           https://api.github.com/repos/mollybeach/${repo_name}
 
         # Create a new directory with the repository name
@@ -77,8 +72,8 @@ jobs:
         # Add the remote origin for the new repository
         git remote add origin "https://mollybeach:${{ secrets.APP_GEN_TOKEN }}@github.com/mollybeach/${repo_name}.git"
 
+        # Run the command to start the project
+        sh -c "$command"
+
         # Push the changes to the remote repository
         git push --set-upstream origin master
-
-        # Run the start command for the selected framework
-        eval "$start_command"
