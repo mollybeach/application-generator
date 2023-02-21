@@ -13,4 +13,4 @@ jobs:
           REPO_NAME=beep
           
           # Create a new repository using the GitHub API
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" --request POST --data '{"name":"'$REPO_NAME'"}' "https://api.github.com/user/repos"
+          curl -H "Authorization: token ${{ secrets.APP_GEN_TOKEN }}" --request POST --data '{"name":"'$REPO_NAME'"}' "https://api.github.com/user/repos"
