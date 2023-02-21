@@ -16,10 +16,9 @@ jobs:
 
     - name: Generate and push random project to GitHub
       run: |
-      
         git config --global user.email "mollyjbeach@gmail.com"
         git config --global user.name "mollybeach"
-        
+
         animals=($(< animal-names.txt))
         fruits=($(< fruit-names.txt))
 
@@ -37,13 +36,25 @@ jobs:
         project_index=$((RANDOM % ${#project[@]}))
         project=${project[$project_index]}
 
+        # Parse the start code file and get the object for the language specified in the extension variable
+        start_code=$(< start-code.json)
+        language=$(echo $extension | tr '[:upper:]' '[:lower:]')
+        frameworks=$(echo $start_code | jq -r --arg lang "$language" '.[$lang]')
+        random_framework=$(echo $frameworks | jq -r 'keys[]' | shuf -n 1)
+        start_command=$(echo $frameworks | jq -r --arg framework "$random_framework" '.[$framework]')
+
         repo_name="${fruit}-${animal}"
         echo "Creating repository: ${repo_name}"
 
         # Create a new repository using the GitHub API
         curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
-        --data "{\"name\":\"${repo_name}\"}" \
-        https://api.github.com/user/repos
+          --data "{\"name\":\"${repo_name}\"}" \
+          https://api.github.com/user/repos
+
+        # Update the repository's sidebar with the repository name and extension
+        curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+          --data "{\"name\":\"${repo_name}\", \"description\":\"${extension}\"}" \
+          https://api.github.com/repos/mollybeach/${repo_name}
 
         # Create a new directory with the repository name
         mkdir "${repo_name}"
@@ -68,3 +79,6 @@ jobs:
 
         # Push the changes to the remote repository
         git push --set-upstream origin master
+
+        # Run the start command for the selected framework
+        eval "$start_command"
