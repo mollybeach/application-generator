@@ -35,7 +35,7 @@ jobs:
         start_code=$(< starter-code.json)
 
         # Find the key in the start-code file that matches the selected extension
-        command=$(echo "$start_code" | jq -r ".[\"$extension\"] | to_entries | .[random % length] | .value")
+        command=$(echo "$start_code" | jq -r ".[\"$extension\"] | shuf -n 1 | .value")
 
         repo_name="${fruit}-${animal}"
         echo "Creating repository: ${repo_name}"
