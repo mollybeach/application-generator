@@ -16,8 +16,8 @@ jobs:
 
     - name: Generate and push random project to GitHub
       run: |
-        git config --global user.email "mollyjbeach@gmail.com"
-        git config --global user.name "mollybeach"
+        git config --global user.email "mollyjbeach@gmail.com" -v
+        git config --global user.name "mollybeach" -v
 
         animals=($(< animal-names.txt))
         fruits=($(< fruit-names.txt))
