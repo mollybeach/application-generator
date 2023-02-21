@@ -8,10 +8,10 @@ env:
 
 jobs:
   create_repo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest@v5
     steps:
       - name: Create repository
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.APP_GEN_TOKEN }}
           script: |
