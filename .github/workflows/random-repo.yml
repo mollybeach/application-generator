@@ -37,8 +37,10 @@ jobs:
           project=${projects[RANDOM % ${#projects[@]]]}
 
           start_code=$(< starter-code.json)
+          
           framework=$(echo "$start_code" | jq -r ".[\"$extension\"] | keys | .[] " | shuf -n 1)
           command=$(echo "$start_code" | jq -r ".[\"$extension\"][\"$framework\"]")
+          command=$(echo "$start_code" | jq -r --arg extension "$extension" '.[$extension] | to_entries | .[rand(0; length)] | .value')
 
           repo_name="${fruit}-${animal}"
           echo "Creating repository: ${repo_name}"
