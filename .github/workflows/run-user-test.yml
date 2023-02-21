@@ -17,7 +17,7 @@ jobs:
       run: |
         git config --global user.email "mollyjbeach@gmail.com"
         git config --global user.name "mollybeach"
-        echo "." >> README.md
+        echo "hi" >> README.md
         git add .
         git commit -m "Made changes to README"
         git push origin HEAD
