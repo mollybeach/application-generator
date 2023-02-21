@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Repository
-        uses: peter-evans/create-repo@v3
+        uses: f1lander/create-repository-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: meep
