@@ -31,10 +31,6 @@ jobs:
         extensions=($(< code-extensions.txt))
         extension_index=$((RANDOM % ${#extensions[@]}))
         extension=${extensions[$extension_index]}
-
-        project=($(< code-projects.txt))
-        project_index=$((RANDOM % ${#project[@]}))
-        project=${project[$project_index]}
         
         projects=$(< code-projects.txt)
         IFS=$'\n' read -rd '' -a projects <<<"$projects"
