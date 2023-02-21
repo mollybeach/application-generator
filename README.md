@@ -29,3 +29,4 @@ The "application-generator" currently supports the following programming languag
 # License
 ## The "application-generator" is licensed under the MIT License. See the LICENSE file for more information.
 .
+.
