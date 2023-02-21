@@ -35,6 +35,8 @@ jobs:
         projects=$(< code-projects.txt)
         IFS=$'\n' read -rd '' -a projects <<<"$projects"
         project=${projects[RANDOM % ${#projects[@]}]}
+        
+        start_code=$(< starter-code.json)	
 
         repo_name="${fruit}-${animal}"
         echo "Creating repository: ${repo_name}"
