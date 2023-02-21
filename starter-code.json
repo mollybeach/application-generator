@@ -1,25 +1,25 @@
 {
   "js": {
-    "Vue": "vue create my-project",
-    "React": "npx create-react-app my-project",
-    "Angular": "ng new my-project",
-    "Ember": "ember new my-project",
-    "Backbone": "npx backbone-cli new my-project",
-    "Meteor": "meteor create my-project"
+    "Vue": "vue create my-project && npm install",
+    "React": "npx create-react-app my-project && npm install",
+    "Angular": "ng new my-project && npm install",
+    "Ember": "ember new my-project && npm install",
+    "Backbone": "npx backbone-cli new my-project && npm install",
+    "Meteor": "meteor create my-project && npm install"
   },
   "py": {
-    "Django": "django-admin startproject my-project",
-    "Flask": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install Flask",
-    "Pyramid": "pcreate -s starter my-project",
-    "FastAPI": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install fastapi uvicorn"
+    "Django": "django-admin startproject my-project && pip install -r requirements.txt && python manage.py runserver",
+    "Flask": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install Flask && deactivate",
+    "Pyramid": "pcreate -s starter my-project && pip install -r requirements.txt && pserve development.ini",
+    "FastAPI": "mkdir my-project && cd my-project && python -m venv venv && source venv/bin/activate && pip install fastapi uvicorn && deactivate"
   },
   "rb": {
-    "Ruby on Rails": "rails new my-project"
+    "Ruby on Rails": "rails new my-project && bundle install && rails server"
   },
   "go": {
-    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin"
+    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin && go build && ./my-project"
   },
   "java": {
-    "Spring Boot": "spring init --dependencies=web my-project"
+    "Spring Boot": "spring init --dependencies=web my-project && mvn package && java -jar target/my-project-0.0.1-SNAPSHOT.jar"
   }
 }
