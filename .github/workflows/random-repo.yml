@@ -44,9 +44,10 @@ jobs:
           --data "{\"name\":\"${repo_name}\"}" \
           https://api.github.com/user/repos
 
-        # Update the repository's sidebar with the repository name and extension
+        # Update the repository's sidebar with a descriptive text
+        description="This project is built in ${extension} tool that ${project}."
         curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
-          --data "{\"name\":\"${repo_name}\", \"description\":\"${extension}\", \"project\":\"${project}\"}" \
+          --data "{\"name\":\"${repo_name}\", \"description\":\"${description}\"}" \
           https://api.github.com/repos/mollybeach/${repo_name}
 
         # Create a new directory with the repository name
