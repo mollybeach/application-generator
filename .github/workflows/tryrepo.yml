@@ -1,0 +1,22 @@
+name: Create and Push New Repository
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+env:
+  GITHUB_USERNAME: mollybeach
+  REPOSITORY_NAME: lilac-repo
+
+jobs:
+  create_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create repository
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const repo = await github.repos.createForAuthenticatedUser({
+              name: process.env.REPOSITORY_NAME,
+              private: false
+            });
+            console.log(`Created repository: ${repo.data.html_url}`);
