@@ -16,7 +16,7 @@ jobs:
     - name: Commit changes
       run: |
         git config --global user.email "mollyjbeach@gmail.com"
-        git config --global user.name "mollybeach
+        git config --global user.name "mollybeach"
         echo "." >> README.md
         git add .
         git commit -m "Made changes to README"
