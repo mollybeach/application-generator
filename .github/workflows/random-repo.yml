@@ -16,8 +16,8 @@ jobs:
 
       - name: Generate and push random project to GitHub
         run: |
-          git config --global user.email "mollyjbeach@gmail.com"
-          git config --global user.name "mollybeach"
+          git config --global user.email "mollyjbeach@gmail.com" -v
+          git config --global user.name "mollybeach" -v
 
           animals=($(< animal-names.txt))
           fruits=($(< fruit-names.txt))
@@ -75,14 +75,4 @@ jobs:
           git commit -m "Initial commit"
 
           # Add the remote origin for the new repository
-          git remote add origin "https://mollybeach:${{ secrets.APP_GEN_TOKEN }}@github.com/mollybeach/${repo_name}.git"
-
-          # Clone the starter code for the selected framework
-          sh -c "$command"
-
-          # Commit the changes
-          git add .
-          git commit -m "Add starter code"
-
-          # Push the changes to the remote repository
-          git push --set-upstream origin master
+          git remote add origin "https
