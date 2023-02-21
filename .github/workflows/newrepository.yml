@@ -8,12 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Repository
-        uses: f1lander/create-repository-action
+        uses: f1lander/create-repository-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: meep
           description: A new repository
           private: false
-          has_issues: true
-          has_projects: true
-          has_wiki: true
