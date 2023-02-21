@@ -31,6 +31,11 @@ jobs:
         extensions=($(< code-extensions.txt))
         extension_index=$((RANDOM % ${#extensions[@]}))
         extension=${extensions[$extension_index]}
+        
+        projects=$(< code-projects.txt)
+        IFS=$'\n' read -rd '' -a projects <<<"$projects"
+        project=${projects[RANDOM % ${#projects[@]]]}
+
 
         start_code=$(< starter-code.json)
 
@@ -46,7 +51,7 @@ jobs:
           https://api.github.com/user/repos
 
         # Update the repository's sidebar with a descriptive text
-        description="This project is built in ${extension} tool that ${command}."
+        description="This project is built in ${extension} language and it provies a tool that ${project} start your project with this command: ${command}."
         curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
           --data "{\"name\":\"${repo_name}\", \"description\":\"${description}\"}" \
           https://api.github.com/repos/mollybeach/${repo_name}
