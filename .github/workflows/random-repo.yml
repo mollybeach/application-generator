@@ -37,7 +37,7 @@ jobs:
         echo "Creating repository: ${repo_name}"
 
         # Create a new repository using the GitHub API
-        curl -u "mollybeach:${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+        curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
         --data "{\"name\":\"${repo_name}\"}" \
         https://api.github.com/user/repos
 
