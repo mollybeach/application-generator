@@ -50,3 +50,15 @@ To use OpenAI to generate project names and descriptions, you will need to modif
 
 Import the OpenAI package at the beginning of the script:
 
+<pre><code>
+import openai
+</code></pre>
+
+Initialize the OpenAI package with your API key:
+
+<pre><code>
+openai.api_key = "YOUR_API_KEY"
+</code></pre>
+
+Use the OpenAI package to generate project names and descriptions:
+
