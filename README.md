@@ -40,9 +40,8 @@ To access the OpenAI API, you will need an API key. You can sign up for an OpenA
 
 The OpenAI Python package provides a Python interface to the OpenAI API. You can install the package using pip:
 
-<pre><code>```
+<pre><code>
 pip install openai
-```
 </code></pre>
 
 # Modifying the Application-Generator
