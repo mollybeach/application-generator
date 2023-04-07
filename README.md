@@ -62,3 +62,4 @@ openai.api_key = "YOUR_API_KEY"
 
 Use the OpenAI package to generate project names and descriptions:
 
+.
