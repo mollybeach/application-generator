@@ -1,0 +1,84 @@
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+env:
+  GIT_AUTHOR_NAME: mollybeach
+  GIT_AUTHOR_EMAIL: mollyjbeach@gmail.com
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Generate and push random project to GitHub
+      run: |
+        git config --global user.email "mollyjbeach@gmail.com"
+        git config --global user.name "mollybeach"
+
+        animals=($(< animal-names.txt))
+        fruits=($(< fruit-names.txt))
+
+        animal_index=$((RANDOM % ${#animals[@]}))
+        fruit_index=$((RANDOM % ${#fruits[@]}))
+
+        animal=${animals[$animal_index]}
+        fruit=${fruits[$fruit_index]}
+
+        extensions=($(< code-extensions.txt))
+        extension_index=$((RANDOM % ${#extensions[@]}))
+        extension=${extensions[$extension_index]}
+        
+        projects=$(< code-projects.txt)
+        IFS=$'\n' read -rd '' -a projects <<<"$projects"
+        project=${projects[RANDOM % ${#projects[@]]]}
+
+
+        start_code=$(< starter-code.json)
+
+        # Find the key in the start-code file that matches the selected extension
+        command=$(echo "$start_code" | jq -r --arg extension "$extension" '.[$extension] | to_entries | .[0] | .value' | shuf -n 1)
+
+        repo_name="${fruit}-${animal}"
+        echo "Creating repository: ${repo_name}"
+
+        # Create a new repository using the GitHub API
+        curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+          --data "{\"name\":\"${repo_name}\"}" \
+          https://api.github.com/user/repos
+
+        # Update the repository's sidebar with a descriptive text
+        description="This project is built in ${extension} language and it provies a tool that ${project} start your project with this command: ${command}."
+        curl -u "mollybeach:${{ secrets.APP_GEN_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+          --data "{\"name\":\"${repo_name}\", \"description\":\"${description}\"}" \
+          https://api.github.com/repos/mollybeach/${repo_name}
+
+        # Create a new directory with the repository name
+        mkdir "${repo_name}"
+
+        # Change into the new directory
+        cd "${repo_name}"
+
+        # Initialize an empty git repository
+        git init
+
+        # Create a README.md file with the repository name as the title
+        echo "# ${repo_name}" >> README.md
+
+        # Add the README.md file
+        git add README.md
+
+        # Commit the changes
+        git commit -m "Initial commit"
+
+        # Add the remote origin for the new repository
+        git remote add origin "https://mollybeach:${{ secrets.APP_GEN_TOKEN }}@github.com/mollybeach/${repo_name}.git"
+
+        # Run the command to start the project
+        sh -c "$command"
+
+        # Push the changes to the remote repository
+        git push --set-upstream origin master
