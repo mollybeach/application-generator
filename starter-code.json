@@ -1,0 +1,25 @@
+{
+  "js": {
+    "Vue": "npm install -g vue-cli && vue create my-project",
+    "React": "npm install -g create-react-app && create-react-app my-project",
+    "Angular": "npm install -g @angular/cli && ng new my-project",
+    "Ember": "npm install -g ember-cli && ember new my-project",
+    "Backbone": "npm install -g backbone-cli && backbone new my-project",
+    "Meteor": "curl https://install.meteor.com/ | sh && meteor create my-project"
+  },
+  "py": {
+    "Django": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install django && django-admin startproject my-project && cd my-project && pip install -r requirements.txt",
+    "Flask": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install Flask && mkdir my-project && cd my-project",
+    "Pyramid": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install pyramid && pcreate -s starter my-project",
+    "FastAPI": "pip install virtualenv && virtualenv env && source env/bin/activate && pip install fastapi uvicorn && mkdir my-project && cd my-project"
+  },
+  "rb": {
+    "Ruby on Rails": "gem install rails && rails new my-project"
+  },
+  "go": {
+    "Gin": "go mod init my-project && go get github.com/gin-gonic/gin"
+  },
+  "java": {
+    "Spring Boot": "curl https://start.spring.io/starter.tgz -d dependencies=web -d language=java -d bootVersion=2.6.3.RELEASE | tar -xzvf - && mv demo my-project"
+  }
+}
